@@ -1,0 +1,27 @@
+@startuml
+title Receitas
+
+hide methods
+skinparam classAttributeIconSize 0
+
+class Receita {
+  id: BigAutoField
+  nome: CharField
+  ingredientes: ManyToManyField
+  favoritas: ManyToManyField
+}
+
+class Ingrediente {
+  id: BigAutoField
+  nome: CharField
+}
+
+class User <<Django Auth>> {
+  id: BigAutoField
+  username: CharField
+}
+
+Receita "0..*" -- "0..*" Ingrediente : ingredientes
+User "0..*" -- "0..*" Receita : receitas favoritas
+
+@enduml

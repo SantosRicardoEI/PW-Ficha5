@@ -1,0 +1,27 @@
+@startuml
+title Escola primária
+
+hide methods
+skinparam classAttributeIconSize 0
+
+class Turma {
+  id: BigAutoField
+  nome: CharField
+}
+
+class Professor {
+  id: BigAutoField
+  nome: CharField
+  turma: OneToOneField
+}
+
+class Aluno {
+  id: BigAutoField
+  nome: CharField
+  turma: ForeignKey
+}
+
+Turma "1" -- "0..1" Professor : professor
+Turma "1" -- "0..*" Aluno : alunos
+
+@enduml

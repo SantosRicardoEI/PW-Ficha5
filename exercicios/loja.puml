@@ -1,0 +1,51 @@
+@startuml
+title Loja online
+
+hide methods
+skinparam classAttributeIconSize 0
+
+class Categoria {
+  id: BigAutoField
+  nome: CharField
+}
+
+class Produto {
+  id: BigAutoField
+  nome: CharField
+  preco: DecimalField
+  categoria: ForeignKey
+}
+
+class Morada {
+  id: BigAutoField
+  rua: CharField
+  cidade: CharField
+  codigo_postal: CharField
+}
+
+class Cliente {
+  id: BigAutoField
+  nome: CharField
+  morada: OneToOneField
+}
+
+class Pedido {
+  id: BigAutoField
+  cliente: ForeignKey
+  data: DateField
+}
+
+class ItemPedido {
+  id: BigAutoField
+  pedido: ForeignKey
+  produto: ForeignKey
+  quantidade: PositiveIntegerField
+}
+
+Categoria "1" -- "0..*" Produto : produtos
+Cliente "1" -- "1" Morada : morada
+Cliente "1" -- "0..*" Pedido : pedidos
+Pedido "1" *-- "1..*" ItemPedido : itens
+Produto "1" -- "0..*" ItemPedido : itens de pedido
+
+@enduml

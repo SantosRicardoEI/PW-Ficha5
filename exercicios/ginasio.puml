@@ -1,0 +1,35 @@
+@startuml
+title Ginásio
+
+hide methods
+skinparam classAttributeIconSize 0
+
+class PT {
+  id: BigAutoField
+  nome: CharField
+}
+
+class Cliente {
+  id: BigAutoField
+  nome: CharField
+}
+
+class Sessao {
+  id: BigAutoField
+  pt: ForeignKey
+  cliente: ForeignKey
+  data: DateField
+  hora: TimeField
+  --
+  unique_together: pt, data, hora
+}
+
+PT "1" -- "0..*" Sessao : sessões
+Cliente "1" -- "0..*" Sessao : sessões
+
+note right of Sessao
+  Um PT não pode ter duas sessões
+  na mesma data e hora.
+end note
+
+@enduml
